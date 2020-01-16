@@ -11,7 +11,7 @@
 
         <link rel="stylesheet" href="/css/main.css">
 
-        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v1.8.2/dist/alpine.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v1.9.2/dist/alpine.js" defer></script>
 
     </head>
     <body class="bg-gray-100 text-gray-800">
@@ -63,37 +63,48 @@
 
         <div class="container mx-auto px-4 xl:px-64 mt-12">
             <h2 class="text-2xl font-bold">FAQs</h2>
-            <div class="leading-loose text-lg mt-6">
-                <div x-data="{ isOpen: false }">
-                    <button class="w-full font-bold border-b border-gray-400 py-3 flex justify-between items-center" @click="isOpen = !isOpen">
-                        <div>Why do I need Alpine JS?</div>
-                        <svg x-show="!isOpen" class="fill-current" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M12 22a10 10 0 110-20 10 10 0 010 20zm0-2a8 8 0 100-16 8 8 0 000 16zm1-9h2a1 1 0 010 2h-2v2a1 1 0 01-2 0v-2H9a1 1 0 010-2h2V9a1 1 0 012 0v2z"/></svg>
-                        <svg x-show="isOpen" class="fill-current" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M12 22a10 10 0 110-20 10 10 0 010 20zm0-2a8 8 0 100-16 8 8 0 000 16zm4-8a1 1 0 01-1 1H9a1 1 0 010-2h6a1 1 0 011 1z"/></svg>
-                    </button>
-                    <div
-                        class="text-gray-700 mt-2 transform origin-top"
-                        x-show="isOpen"
-                        x-transition:enter="transition-all ease-out duration-100"
-                        x-transition:enter-start="opacity-0 scale-75"
-                        x-transition:enter-end="opacity-100 scale-100"
-                        x-transition:leave="transition-all ease-in duration-100"
-                        x-transition:leave-start="opacity-100 scale-100"
-                        x-transition:leave-end="opacity-0 scale-75"
-                    >
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores iure quas laudantium dicta impedit, est id delectus molestiae deleniti enim nobis rem et nihil. Magni consequuntur, suscipit voluptates, dolorem ut deserunt laboriosam repudiandae, alias vero minima delectus iure quasi id earum reiciendis est culpa autem commodi sed nisi hic. Impedit?
-                    </div>
-                </div>
-                <div>
-                    <button class="w-full font-bold border-b border-gray-400 py-3 flex justify-between items-center mt-4">
-                        <div>Why am I so awesome?</div>
-                        <svg class="fill-current" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M12 22a10 10 0 110-20 10 10 0 010 20zm0-2a8 8 0 100-16 8 8 0 000 16zm1-9h2a1 1 0 010 2h-2v2a1 1 0 01-2 0v-2H9a1 1 0 010-2h2V9a1 1 0 012 0v2z"/></svg>
-                        {{-- <svg class="fill-current" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M12 22a10 10 0 110-20 10 10 0 010 20zm0-2a8 8 0 100-16 8 8 0 000 16zm4-8a1 1 0 01-1 1H9a1 1 0 010-2h6a1 1 0 011 1z"/></svg> --}}
-                    </button>
-                    <div class="text-gray-700 mt-2">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure vitae dicta aliquid quam voluptas sit atque nostrum modi qui eveniet cumque a, exercitationem, eum deserunt odio repudiandae repellat temporibus ratione saepe magnam neque tempora debitis nobis rem eaque. Vero, repudiandae.
-                    </div>
-                </div>
+            <div
+                class="leading-loose text-lg mt-6"
+                x-data="{
+                    faqs: [
+                        {
+                            question: 'Why do I need Alpine JS?',
+                            answer: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores iure quas laudantium dicta impedit, est id delectus molestiae deleniti enim nobis rem et nihil. Magni consequuntur, suscipit voluptates, dolorem ut deserunt laboriosam repudiandae, alias vero minima delectus iure quasi id earum reiciendis est culpa autem commodi sed nisi hic. Impedit?',
+                            isOpen: false,
+                        },
+                        {
+                            question: 'Why am I so awesome?',
+                            answer: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi cumque, nulla harum aspernatur veniam ullam provident neque temporibus autem itaque odit modi magnam fuga eius quidem vel dolor non, aperiam hic, porro possimus veritatis numquam et! Animi nihil dolorem in, quis harum possimus numquam incidunt reprehenderit repellendus, maxime ut, nulla.',
+                            isOpen: false,
+                        },
+                    ]
+                }"
+            >
+                <template x-for="faq in faqs" :key="faq">
+                    <div>
+                        <button
+                            @click="faq.isOpen = !faq.isOpen"
+                            class="w-full font-bold border-b border-gray-400 py-3 flex justify-between items-center mt-4"
+                        >
+                            <div x-text="faq.question"></div>
+                            <svg x-show="!faq.isOpen" class="fill-current" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M12 22a10 10 0 110-20 10 10 0 010 20zm0-2a8 8 0 100-16 8 8 0 000 16zm1-9h2a1 1 0 010 2h-2v2a1 1 0 01-2 0v-2H9a1 1 0 010-2h2V9a1 1 0 012 0v2z"/></svg>
+                            <svg x-show="faq.isOpen" class="fill-current" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M12 22a10 10 0 110-20 10 10 0 010 20zm0-2a8 8 0 100-16 8 8 0 000 16zm4-8a1 1 0 01-1 1H9a1 1 0 010-2h6a1 1 0 011 1z"/></svg>
 
+                        </button>
+                        <div
+                            class="text-gray-700 mt-2 transform origin-top"
+                            x-show="faq.isOpen"
+                            x-transition:enter="transition-all ease-out duration-100"
+                            x-transition:enter-start="opacity-0 scale-75"
+                            x-transition:enter-end="opacity-100 scale-100"
+                            x-transition:leave="transition-all ease-in duration-100"
+                            x-transition:leave-start="opacity-100 scale-100"
+                            x-transition:leave-end="opacity-0 scale-75"
+                            x-text="faq.answer"
+                        >
+                        </div>
+                    </div>
+                </template>
             </div>
         </div>
 
